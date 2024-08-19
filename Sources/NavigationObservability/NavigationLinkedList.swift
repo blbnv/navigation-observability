@@ -16,32 +16,33 @@ final class NavigationLinkedList {
             head = node;
             tail = node
             
-            trackAppearance(head!)
+            trackAppearance()
             return
         }
         
         // skip pop case
         if head?.previousNode == node { return }
         
+        // Assign a new head and track appearance
         let newHead = node
         head?.nextNode = newHead
         newHead.previousNode = head
         head = newHead
         
-        trackAppearance(head!)
+        trackAppearance()
     }
     
     func remove(_ node: NavigationNode) {
+        // Tracking modal dismiss
         if head == node {
             let newHead = head?.previousNode
             head = newHead
             head?.nextNode = nil
-            trackAppearance(newHead!)
+            trackAppearance()
         }
     }
     
-    // TODO: remove `node`, because head is a source of truth
-    func trackAppearance(_ node: NavigationNode) {
+    func trackAppearance() {
         print("logging screen appear: \(NavigationTracker.shared.navigationList.head!.screenName)")
     }
 }
